@@ -28,12 +28,12 @@ class Settings(BaseSettings):
     )
 
     database_url: str = Field(
-        default="",
+        default="postgresql+psycopg://postgres:postgres@localhost:5433/traffic_db",
         description="PostgreSQL database connection URL.",
     )
 
     redis_url: str = Field(
-        default="",
+        default="redis://localhost:6379",
         description="Redis connection URL.",
     )
 
@@ -57,12 +57,4 @@ def get_settings() -> Settings:
     Returns:
         Application settings instance.
     """
-    settings = Settings()
-
-    if not settings.database_url:
-        raise ValueError("DATABASE_URL is not configured.")
-
-    if not settings.redis_url:
-        raise ValueError("REDIS_URL is not configured.")
-
-    return settings
+    return Settings()

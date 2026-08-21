@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from loguru import logger
-
+from app.api.v1.router import api_router
 from app.core.config import get_settings
 from app.core.logging import configure_logging
 
@@ -20,7 +20,10 @@ def create_application() -> FastAPI:
         version=settings.app_version,
         description="AI-based traffic congestion prediction system.",
         debug=settings.debug,
+        # lifespan=application_lifespan,
     )
+
+    application.include_router(api_router)
 
     logger.info(
         "Application initialized: {} v{}",
