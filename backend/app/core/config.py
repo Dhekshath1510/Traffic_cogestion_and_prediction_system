@@ -44,6 +44,11 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
+    log_level: str = Field(
+        default="INFO",
+        description="Application logging level.",
+    )
+
 
 @lru_cache
 def get_settings() -> Settings:
