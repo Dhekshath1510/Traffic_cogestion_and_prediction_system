@@ -45,13 +45,16 @@ async def readiness_check(response: Response) -> ReadinessResponse:
     Returns:
         Service and infrastructure readiness information.
     """
-    postgres_healthy = await check_database_connection(engine=create_database_engine())
-    redis_healthy = await check_redis_connection()
+    postgres_healthy = await check_database_connection(
+        engine=create_database_engine(),
+    )
+
+    redis_healthy = check_redis_connection()
 
     overall_healthy = postgres_healthy and redis_healthy
 
     if not overall_healthy:
-        response.status_code = status.HTTP_503_SERVICE_UNAVAILABLE
+        response.status_code = 503
 
     return ReadinessResponse(
         status="healthy" if overall_healthy else "unhealthy",

@@ -46,3 +46,7 @@ docker-data/
 # OS
 .DS_Store
 Thumbs.db
+
+/backend/tests
+/data
+conclusion.md
